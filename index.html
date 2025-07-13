@@ -151,3 +151,40 @@
 
 </body>
 </html>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ramos = document.querySelectorAll(".ramo");
+    const infoDiv = document.getElementById("infoRamo");
+
+    // Cargar desde localStorage
+    const aprobados = JSON.parse(localStorage.getItem("ramosAprobados")) || [];
+
+    ramos.forEach(ramo => {
+      const nombre = ramo.textContent;
+
+      // Si el ramo estaba aprobado antes, márcalo
+      if (aprobados.includes(nombre)) {
+        ramo.classList.add("aprobado");
+      }
+
+      // Clic para marcar/desmarcar y guardar
+      ramo.addEventListener("click", () => {
+        ramo.classList.toggle("aprobado");
+        const actualizado = document.querySelectorAll(".ramo.aprobado");
+        const lista = Array.from(actualizado).map(el => el.textContent);
+        localStorage.setItem("ramosAprobados", JSON.stringify(lista));
+      });
+
+      // Mostrar info al pasar el mouse (opcional)
+      ramo.addEventListener("mouseenter", () => {
+        infoDiv.style.display = "block";
+        infoDiv.textContent = ramo.getAttribute("data-info");
+      });
+
+      ramo.addEventListener("mouseleave", () => {
+        infoDiv.style.display = "none";
+        infoDiv.textContent = "";
+      });
+    });
+  });
+</script>
