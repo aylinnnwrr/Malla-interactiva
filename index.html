@@ -1,85 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Malla Interactiva</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Malla Kinesiología UST - Rosita</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff0f6;
+    margin: 20px;
+    color: #333;
+  }
+  .anio {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 20px 25px;
+    box-shadow: 0 5px 12px rgb(255 127 158 / 0.3);
+  }
+  .anio h2 {
+    border-bottom: 3px solid #ff7f9e;
+    padding-bottom: 10px;
+    color: #ff4d6d;
+    font-weight: 700;
+  }
+  .semestre {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .ramo {
+    background: #ff7f9e;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1 1 150px;
+    text-align: center;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  .ramo:hover {
+    background: #ff4d6d;
+  }
+  .ramo.aprobado {
+    background: #ffcad0 !important;  /* rosita más claro */
+    color: #a60021;
+    text-decoration: line-through;
+    opacity: 0.85;
+  }
+  #infoRamo {
+    margin-top: 25px;
+    background: #ffe6ec;
+    padding: 18px 22px;
+    border-radius: 10px;
+    font-style: italic;
+    box-shadow: inset 0 0 10px #ff9bb3;
+    max-width: 700px;
+  }
+</style>
 </head>
 <body>
-  <h1>Malla Interactiva</h1>
-  <div class="malla">
-    <div class="ramo" onclick="mostrarInfo('matematica')">Matemáticas I</div>
-    <div class="ramo" onclick="mostrarInfo('programacion')">Programación</div>
+
+<h1>Malla Kinesiología UST (5 años)</h1>
+
+<div class="anio">
+  <h2>Año 1</h2>
+  <div class="semestre">
+    <div class="ramo" data-info="Anatomía Humana I">Anatomía Humana I</div>
+    <div class="ramo" data-info="Fisiología I">Fisiología I</div>
+    <div class="ramo" data-info="Introducción a la Kinesiología">Introducción a la Kinesiología</div>
+    <div class="ramo" data-info="Química General">Química General</div>
+    <div class="ramo" data-info="Psicología General">Psicología General</div>
+    <div class="ramo" data-info="Bioestadística">Bioestadística</div>
   </div>
-  <div id="infoRamo" class="info-ramos"></div>
-  <script src="script.js"></script>
+</div>
+
+<div class="anio">
+  <h2>Año 2</h2>
+  <div class="semestre">
+    <div class="ramo" data-info="Anatomía Humana II">Anatomía Humana II</div>
+    <div class="ramo" data-info="Fisiología II">Fisiología II</div>
+    <div class="ramo" data-info="Biomecánica">Biomecánica</div>
+    <div class="ramo" data-info="Patología General">Patología General</div>
+    <div class="ramo" data-info="Microbiología y Parasitología">Microbiología y Parasitología</div>
+    <div class="ramo" data-info="Farmacología">Farmacología</div>
+  </div>
+</div>
+
+<div class="anio">
+  <h2>Año 3</h2>
+  <div class="semestre">
+    <div class="ramo" data-info="Kinesiología Respiratoria">Kinesiología Respiratoria</div>
+    <div class="ramo" data-info="Electroterapia">Electroterapia</div>
+    <div class="ramo" data-info="Evaluación Funcional">Evaluación Funcional</div>
+    <div class="ramo" data-info="Neurología Aplicada">Neurología Aplicada</div>
+    <div class="ramo" data-info="Terapia Manual">Terapia Manual</div>
+    <div class="ramo" data-info="Investigación en Kinesiología">Investigación en Kinesiología</div>
+  </div>
+</div>
+
+<div class="anio">
+  <h2>Año 4</h2>
+  <div class="semestre">
+    <div class="ramo" data-info="Kinesiología Deportiva">Kinesiología Deportiva</div>
+    <div class="ramo" data-info="Rehabilitación Cardiorrespiratoria">Rehabilitación Cardiorrespiratoria</div>
+    <div class="ramo" data-info="Rehabilitación Neurológica">Rehabilitación Neurológica</div>
+    <div class="ramo" data-info="Kinesiología en Trauma">Kinesiología en Trauma</div>
+    <div class="ramo" data-info="Gestión y Administración en Salud">Gestión y Administración en Salud</div>
+  </div>
+</div>
+
+<div class="anio">
+  <h2>Año 5</h2>
+  <div class="semestre">
+    <div class="ramo" data-info="Práctica Profesional I">Práctica Profesional I</div>
+    <div class="ramo" data-info="Práctica Profesional II">Práctica Profesional II</div>
+    <div class="ramo" data-info="Seminario de Tesis">Seminario de Tesis</div>
+    <div class="ramo" data-info="Ética Profesional">Ética Profesional</div>
+    <div class="ramo" data-info="Tópicos Avanzados en Kinesiología">Tópicos Avanzados en Kinesiología</div>
+  </div>
+</div>
+
+<div id="infoRamo" style="display:none;"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ramos = document.querySelectorAll(".ramo");
+    const infoDiv = document.getElementById("infoRamo");
+
+    ramos.forEach(ramo => {
+      ramo.addEventListener("click", () => {
+        ramo.classList.toggle("aprobado");
+      });
+
+      ramo.addEventListener("mouseenter", () => {
+        infoDiv.style.display = "block";
+        infoDiv.textContent = ramo.getAttribute("data-info");
+      });
+
+      ramo.addEventListener("mouseleave", () => {
+        infoDiv.style.display = "none";
+        infoDiv.textContent = "";
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
-<div class="malla">
-  <!-- Semestre 1 -->
-  <div class="ramo" onclick="mostrarInfo('principiosMat')">Principios Matemáticos</div>
-  <div class="ramo" onclick="mostrarInfo('fundAnatMovHum')">Fund. Anat. Movimiento Humano</div>
-  <div class="ramo" onclick="mostrarInfo('bioCelular')">Biología Celular</div>
-  <div class="ramo" onclick="mostrarInfo('fundMovHum')">Fund. Movimiento Humano</div>
-  <div class="ramo" onclick="mostrarInfo('tallerComunic')">Taller Compet. Comunicativas</div>
-  <div class="ramo" onclick="mostrarInfo('tallerAprendizaje')">Taller Compet. Aprendizaje</div>
-
-  <!-- Semestre 2 -->
-  <div class="ramo" onclick="mostrarInfo('anatomiaFisio')">Anatomía / Fisiología</div>
-  <div class="ramo" onclick="mostrarInfo('actiFisSalud')">Actividad Física y Salud</div>
-  <div class="ramo" onclick="mostrarInfo('fisTisBiofisica')">Fisio tejidos / Biofísica</div>
-  <div class="ramo" onclick="mostrarInfo('quimica')">Química</div>
-  <div class="ramo" onclick="mostrarInfo('culturaValores')">Cultura y Valores</div>
-  <div class="ramo" onclick="mostrarInfo('tallerDesarrollo1')">Taller Desarrollo Personal I</div>
-
-  <!-- Semestre 3 -->
-  <div class="ramo" onclick="mostrarInfo('estadistica')">Estadística en Salud</div>
-  <div class="ramo" onclick="mostrarInfo('fisioFarmaco')">Fisiopatología y Farmacología</div>
-  <div class="ramo" onclick="mostrarInfo('fisArticular')">Fisiología Articular</div>
-  <div class="ramo" onclick="mostrarInfo('desPsicomotor')">Desarrollo Psicomotor</div>
-  <div class="ramo" onclick="mostrarInfo('bioquimica')">Bioquímica</div>
-  <div class="ramo" onclick="mostrarInfo('ingles1')">Inglés Básico I</div>
-
-  <!-- Semestre 4 -->
-  <div class="ramo" onclick="mostrarInfo('saludPublica')">Fundam. Salud Pública</div>
-  <div class="ramo" onclick="mostrarInfo('bioControlMotor')">Biomec. y Control Motor</div>
-  <div class="ramo" onclick="mostrarInfo('personaSentido')">Persona y Sentido</div>
-  <div class="ramo" onclick="mostrarInfo('semiologia')">Semiología & Imagenología</div>
-  <div class="ramo" onclick="mostrarInfo('tallerDesarrollo2')">Taller Desarrollo Personal II</div>
-  <div class="ramo" onclick="mostrarInfo('ingles2')">Inglés Básico II</div>
-
-  <!-- Semestre 5 -->
-  <div class="ramo" onclick="mostrarInfo('fisioterapiaEjercicio')">Fisioterapia y Ejercicio Terapéutico</div>
-  <div class="ramo" onclick="mostrarInfo('fisiologiaEjercicio')">Fisiología del Metab. & Ejercicio</div>
-  <div class="ramo" onclick="mostrarInfo('prehospitalariaAux')">Atención Prehospitalaria y Primeros Aux.</div>
-  <div class="ramo" onclick="mostrarInfo('gestionSalud')">Gestión en Salud</div>
-  <div class="ramo" onclick="mostrarInfo('gerontologia')">Gerontología</div>
-  <div class="ramo" onclick="mostrarInfo('rehabFamiliar')">Rehab. Salud Familiar y Comunitaria</div>
-
-  <!-- Semestre 6 -->
-  <div class="ramo" onclick="mostrarInfo('rehabLocomotorInfantil')">Rehab. Sistema Locomotor Infantil</div>
-  <div class="ramo" onclick="mostrarInfo('rehabCardioInfantil')">Rehab. Cardioresp. Infantil</div>
-  <div class="ramo" onclick="mostrarInfo('prescripEjercPacCrónicos')">Prescripción de Ej. en Pac. Crónicos</div>
-  <div class="ramo" onclick="mostrarInfo('eticaSalud')">Ética en Salud</div>
-  <div class="ramo" onclick="mostrarInfo('neuroRehabInfantil')">Neurorehabilitación Infantil</div>
-  <div class="ramo" onclick="mostrarInfo('rehabGeriatrica')">Rehabilitación Geriátrica</div>
-
-  <!-- Semestre 7 -->
-  <div class="ramo" onclick="mostrarInfo('rehabLocomotorAdulto')">Rehab. Sistema Locomotor Adulto</div>
-  <div class="ramo" onclick="mostrarInfo('rehabCardioAdulto')">Rehab. Cardioresp. Adulto</div>
-  <div class="ramo" onclick="mostrarInfo('investigacionMetodologia')">Metodología de la Investigación</div>
-  <div class="ramo" onclick="mostrarInfo('rehabDeportiva')">Rehabilitación Deportiva</div>
-  <div class="ramo" onclick="mostrarInfo('neuroRehabAdulto')">Neurorehab. Adulto</div>
-  <div class="ramo" onclick="mostrarInfo('saludOcupacional')">Salud Ocupacional</div>
-
-  <!-- Semestre 8 -->
-  <div class="ramo" onclick="mostrarInfo('rehabCondEspeciales')">Rehab. en Condiciones Especiales de Salud</div>
-  <div class="ramo" onclick="mostrarInfo('tratamientoCritico')">Tratamiento Kinésico del Paciente Crítico</div>
-  <div class="ramo" onclick="mostrarInfo('seminarioInvestigacion')">Seminario de Investigación</div>
-  <div class="ramo" onclick="mostrarInfo('razonamientoClinico')">Razonamiento Clínico</div>
-  <div class="ramo" onclick="mostrarInfo('electivo3')">Electivo III</div>
-
-  <!-- Semestre 9 & 10 -->
-  <div class="ramo" onclick="mostrarInfo('internadoProfesional1')">Internado Profesional I</div>
-  <div class="ramo" onclick="mostrarInfo('internadoProfesional2')">Internado Profesional II</div>
-</div>
